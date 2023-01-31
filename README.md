@@ -3,7 +3,7 @@ A message posting service using SpringBoot and OAuth2.0
 
 UMS - User Managment Service
  
- Login services-
+ Login service-
  
     Initial "/" mapping sets a login page
     
@@ -11,11 +11,11 @@ UMS - User Managment Service
     
     Additionally, a messaage is sent to the TMS with the token and username to be saved to the tweet managment db.
   
-  Roles- 
+  Roles service- 
   
     Get, Post, Put, Delete mappings to retrieve, create, update, and delete roles respectively.
   
-  User-
+  User service-
   
     "/logout" - (Get) returns user last logout (Post) sets users last logout.
     
