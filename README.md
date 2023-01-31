@@ -30,7 +30,7 @@ TMS - Tweet Managment Service
 
  Messaging service-
  
-     "/recieve" - recieves the auth message from UMS and saves to db.
+    "/recieve" - recieves the auth message from UMS and saves to db.
     
     "/message" - (Get) retrieves a message using the messageID (Post) Create a message (Put) update a message (Delete) Delete a message.
     
