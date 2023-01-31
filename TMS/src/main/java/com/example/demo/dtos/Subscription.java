@@ -13,7 +13,17 @@ public class Subscription {
     private UUID subscriber;
     private List<UUID> producers = new ArrayList<>();
 
-    public void addProducer(UUID producerId) {
+    public Subscription(UUID bytesArrayToUuid, List<UUID> asList) {
+		subscriber = bytesArrayToUuid;
+		producers = asList;
+	}
+
+	public Subscription() {
+		subscriber = null;
+		producers = null;
+	}
+
+	public void addProducer(UUID producerId) {
         this.producers.add(producerId);
     }
 

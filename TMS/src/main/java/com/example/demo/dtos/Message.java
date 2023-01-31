@@ -1,22 +1,23 @@
 package com.example.demo.dtos;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Message {
     private UUID id;
     private UUID author;
     private String content;
-    private long timestamp;
+    private Date timestamp;
 
     public UUID getId() {
         return id;
     }
 
-    public Message(UUID id, UUID author, String content, long timestamp) {
-        this.id = id;
-        this.author = author;
+    public Message(UUID id2, UUID userID, String content, Date date) {
+        this.id = id2;
+        this.author = userID;
         this.content = content;
-        this.timestamp = timestamp;
+        this.timestamp = date;
     }
 
     public Message() {
@@ -24,7 +25,7 @@ public class Message {
         this.id = null;
         this.author = null;
         this.content = null;
-        this.timestamp = 0;
+        this.timestamp = new Date();
     }
 
     public void setId(UUID id) {
@@ -47,11 +48,11 @@ public class Message {
         this.content = content;
     }
 
-    public long getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 }

@@ -1,33 +1,17 @@
 package com.example.demo.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.management.relation.Role;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,9 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import com.example.demo.dao.DBManager;
 import com.example.demo.dao.UmsRepository;
 import com.example.demo.dtos.Constants;
 import com.example.demo.dtos.Roles;
@@ -52,30 +34,6 @@ public class UserController {
 	@Autowired
 	private UmsRepository umsRepository;
 	Map<String, Object> response = new HashMap<>();
-
-	// this is used to return producer ID's for the Twitter managment service. it is
-	// called by the twitter service not by the client.
-	@GetMapping("subscriber")
-	public Mono<ResponseEntity<Map<String, Object>>> ReturnProducer(@RequestParam String SubscriberID,
-			@RequestParam String Token) throws SQLException {
-		if (umsRepository.TokenCheck(Token) == true) {
-			Map<Integer, String> producers = umsRepository.getProducerId(SubscriberID);
-			if (producers != null) {
-				response.put(Constants.CODE, 200);
-				response.put(Constants.MESSAGE, "ProducerIDs have been Retrieved");
-				response.put(Constants.DATA, new ArrayList<>(producers.values()));
-			} else {
-				response.put(Constants.CODE, 500);
-				response.put(Constants.MESSAGE, "ProducerIDs have not been Retrieved");
-				response.put(Constants.DATA, new HashMap<>());
-			}
-		} else {
-			response.put(Constants.CODE, "400");
-			response.put(Constants.MESSAGE, "Invalid Token");
-		}
-		return Mono.just(ResponseEntity.ok().header(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON)
-				.header(Constants.ACCEPT, Constants.APPLICATION_JSON).body(response));
-	}
 
 	/*
 	 * Logout section - /logout
@@ -125,7 +83,7 @@ public class UserController {
 	 * User Section- /user
 	 * Get (getAllUsers), Post (createUser), put(updateUser), Delete(deleteUser)
 	 */
-	@GetMapping("users")
+	@GetMapping("user")
 	public Mono<ResponseEntity<Map<String, Object>>> getAllUsers() {
 		Map<UUID, User> users = umsRepository.findAllUsers();
 		if (users == null) {
@@ -273,6 +231,29 @@ public class UserController {
 		return Mono.just(ResponseEntity.ok().header(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON)
 				.header(Constants.ACCEPT, Constants.APPLICATION_JSON).body(response));
 	}
+	
+	
+	@GetMapping("user/producer")
+	public Mono<ResponseEntity<Map<String, Object>>> getProducerForSubscriber(@RequestParam int SubscriberID, @RequestParam String Token) throws SQLException {
+	if (umsRepository.TokenCheck(Token) == true) {
+		List<Object> producers = umsRepository.getProducers(SubscriberID);
+		if (producers == null) {
+			response.put(Constants.CODE, "500");
+			response.put(Constants.MESSAGE, "Producers Not found");
+		} else if (producers != null) {
+			response.put(Constants.CODE, "201");
+			response.put(Constants.MESSAGE, "Producers found");
+			response.put(Constants.DATA, producers);
+		}
+	} else {
+		response.put(Constants.CODE, "400");
+		response.put(Constants.MESSAGE, "Invalid Token");
+	}
+	return Mono.just(ResponseEntity.ok().header(Constants.CONTENT_TYPE, Constants.APPLICATION_JSON)
+			.header(Constants.ACCEPT, Constants.APPLICATION_JSON).body(response));
+	}
+	
+	
 
 	public class ParameterStringBuilder {
 		public static String getParamsString(Map<String, String> params)

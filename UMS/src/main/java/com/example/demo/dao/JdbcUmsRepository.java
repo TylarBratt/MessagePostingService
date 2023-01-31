@@ -290,4 +290,11 @@ public class JdbcUmsRepository implements UmsRepository {
             return username;
         });
     }
+
+	@Override
+	public List<Object> getProducers(int Subscriber) {
+		String query = "SELECT PRODUCERID FROM SUBSCRIPTIONS WHERE SUBSCRIBERID = " + Subscriber;
+		List<Object> Producers = jdbcTemplate.query(query, (rs, rowNum) -> rs.getInt("PRODUCERID"));
+		return Producers;
+	}
 }

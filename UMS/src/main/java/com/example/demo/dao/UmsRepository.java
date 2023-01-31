@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -46,4 +47,6 @@ public interface UmsRepository {
 	int setAuth(int authId, String username, String accessToken, Date formattedDate);
 
 	String getUserName(UUID userId);
+	
+	List<Object> getProducers(int Subscriber);
 }
