@@ -16,6 +16,7 @@ UMS - User Managment Service
     Get, Post, Put, Delete mappings to retrieve, create, update, and delete roles respectively.
   
   User-
+  
     "/logout" - (Get) returns user last logout (Post) sets users last logout.
     
     "/user" - (Get) returns full list of users (Post) Create a user (Put) Update a user (Delete) Delete a user.
@@ -25,7 +26,7 @@ UMS - User Managment Service
     "/user/producer" - (Get) returns list of producers with a subscriberID (Duplicate)
     
 
-TMS - Tweet Managment Servie
+TMS - Tweet Managment Service
 
   "/recieve" - recieves the auth message from UMS and saves to db.
   
