@@ -23,17 +23,18 @@ UMS - User Managment Service
     
     "/user/role" - (Get) retrieves users role (Post) Assign a role to a user (Delete) Delete a users role.
     
-    "/user/producer" - (Get) returns list of producers with a subscriberID (Duplicate)
+    "/user/producer" - (Get) returns list of producers with a subscriberID
     
 
 TMS - Tweet Managment Service
 
- Messaging-
+ Messaging service-
+ 
+     "/recieve" - recieves the auth message from UMS and saves to db.
+    
+    "/message" - (Get) retrieves a message using the messageID (Post) Create a message (Put) update a message (Delete) Delete a message.
+    
+    "/message/producer" - (Get) initiates the retrieval of producer ID's using a subscribers ID.
+    
+    "/auth" - (Get) checks if the session is authorized.
 
-   "/recieve" - recieves the auth message from UMS and saves to db.
-
-   "/message" - (Get) retrieves a message using the messageID (Post) Create a message (Put) update a message (Delete) Delete a message.
-
-   "/message/producer" - (Get) initiates the retrieval of producer ID's using a subscribers ID.
-
-   "/auth" - (Get) checks if the session is authorized.
