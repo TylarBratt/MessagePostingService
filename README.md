@@ -28,10 +28,10 @@ UMS - User Managment Service
 
 TMS - Tweet Managment Service
 
-  "/recieve" - recieves the auth message from UMS and saves to db.
-  
-  "/message" - (Get) retrieves a message using the messageID (Post) Create a message (Put) update a message (Delete) Delete a message.
-  
-  "/message/producer" - (Get) initiates the retrieval of producer ID's using a subscribers ID.
-  
-  "/auth" - (Get) checks if the session is authorized.
+   "/recieve" - recieves the auth message from UMS and saves to db.
+
+   "/message" - (Get) retrieves a message using the messageID (Post) Create a message (Put) update a message (Delete) Delete a message.
+
+   "/message/producer" - (Get) initiates the retrieval of producer ID's using a subscribers ID.
+
+   "/auth" - (Get) checks if the session is authorized.
